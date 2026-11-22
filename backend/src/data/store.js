@@ -18,7 +18,9 @@ import {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DATA_FILE = path.join(__dirname, 'db_state.json');
+const DATA_FILE = process.env.VERCEL
+  ? path.join('/tmp', 'db_state.json')
+  : path.join(__dirname, 'db_state.json');
 
 class DataStore {
   constructor() {

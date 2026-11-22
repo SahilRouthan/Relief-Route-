@@ -190,9 +190,12 @@ export async function getMlModelEvaluation(request) {
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 1200);
+    const timeoutId = setTimeout(() => controller.abort(), 2500);
 
-    const response = await fetch('http://localhost:8000/predict', {
+    const aiBaseUrl = process.env.AI_SERVICE_URL || 'http://localhost:8000';
+    const predictUrl = new URL('predict', aiBaseUrl.endsWith('/') ? aiBaseUrl : `${aiBaseUrl}/`).toString();
+
+    const response = await fetch(predictUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

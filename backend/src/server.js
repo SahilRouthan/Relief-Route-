@@ -45,11 +45,15 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal Server Error', message: err.message });
 });
 
-// Start listening
-app.listen(PORT, () => {
-  console.log(`=================================================================`);
-  console.log(`  RELIEFROUTE BACKEND SERVER LISTENING ON PORT ${PORT}`);
-  console.log(`  URL: http://localhost:${PORT}`);
-  console.log(`  Ready for academic prototype demonstration`);
-  console.log(`=================================================================`);
-});
+// Start listening if run directly
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`=================================================================`);
+    console.log(`  RELIEFROUTE BACKEND SERVER LISTENING ON PORT ${PORT}`);
+    console.log(`  URL: http://localhost:${PORT}`);
+    console.log(`  Ready for academic prototype demonstration`);
+    console.log(`=================================================================`);
+  });
+}
+
+export default app;
